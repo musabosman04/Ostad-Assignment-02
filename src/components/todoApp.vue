@@ -1,10 +1,15 @@
 <script setup>
 import { reactive, ref } from 'vue';
 const isSidebarActive = ref(false);
+
 const taskName = ref(null);
 const taskTime = ref(null);
+
 const errors = ref([]);
+
 const oldTask = ref(null);
+
+// Task default data =========================================>
 const tasks = reactive([
     { id: 1,name: 'Task 1', time: 30 },
     { id: 2,name: 'Task 2', time: 40 },
@@ -21,10 +26,11 @@ function removeTask(index) {
 // Task Edit function =========================================>
 function editTask(id) {
     let task = tasks.find(item => item.id == id);
-    isSidebarActive.value = true;
     taskName.value = task.name;
     taskTime.value = task.time;
     oldTask.value = task;
+
+    isSidebarActive.value = true;
 };
 
 
@@ -75,6 +81,8 @@ function addNewTask() {
 <template>
     <!-- component -->
     <div class="h-screen w-full flex items-center justify-center bg-teal-lightest font-sans">
+
+
         <div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-xxl">
 
             <!-- ================= Add task button ================= -->
@@ -140,6 +148,8 @@ function addNewTask() {
         <div class="fixed  top-0 right-0 z-40 w-96 h-screen p-4 overflow-y-auto transition-transform bg-white"
             :class="isSidebarActive ? 'transform-none' : 'translate-x-full'">
             <h5 class="text-base font-semibold text-gray-500 uppercase">Menu </h5>
+
+            <!-- Close button -->
             <button type="button" @click="isSidebarActive = false"
                 class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 end-2.5 inline-flex items-center">
                 <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
@@ -151,6 +161,7 @@ function addNewTask() {
                 <span class="sr-only">Close menu</span>
             </button>
 
+            <!-- Task form -->
             <div class="py-4 overflow-y-auto border-t mt-5">
                 <form @submit.prevent="addNewTask()">
                     <div class="mb-5">
@@ -173,12 +184,12 @@ function addNewTask() {
                         class="text-white bg-blue-700  hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
                 </form>
             </div>
+
+
         </div>
-        <div class="bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-30" @click="isSidebarActive = false"
-            v-show="isSidebarActive"></div>
 
-
-
+        <!-- Transparent layer -->
+        <div class="bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-30" @click="isSidebarActive = false" v-show="isSidebarActive"></div>
     </div>
 </template>
 
