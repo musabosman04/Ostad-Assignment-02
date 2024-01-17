@@ -66,12 +66,14 @@ function addNewTask() {
         });
     } else {
         let index = tasks.findIndex(item => item.id == oldTask.value.id);
-        console.log(index);
+        
         if (index !== -1) {
             tasks[index].name = taskName.value;
             tasks[index].time = taskTime.value;
         }
     }
+
+    
     taskName.value = '';
     taskTime.value = '';
     isSidebarActive.value = false;
